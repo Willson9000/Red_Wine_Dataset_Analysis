@@ -103,35 +103,28 @@ names = []
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import StratifiedKFold
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 header = st.container()
 
 st.title("Red Wine DataSet Analysis")
+st.write(f"The exploratory Data Analysis for this report was completed in Visual Studio using several libraries and functions, it also utilized streamlit as a GUI for the EDA findings/answers.\n")
+
+st.markdown("""
+The exploratory Data Analysis for this report was completed in Visual Studio using several libraries and functions, it also utilized streamlit as a GUI for the EDA findings/answers.
+The questions I attempted to answer follow as:
+
+1.	What is the quality of data in the red wine data set?
+
+2.	How do the different features in the dataset compare in terms of their distributions, and are there any noticeable trends or patterns?
+
+3.	Are there any outliers or anomalies in the dataset that could affect our analysis or modelling?
+
+4.	Which attributes of the wine effects its qualities favourable and unfavourably the most?
+
+5.	Are there any strong correlations between the different chemical properties of the wine?
+
+""")
+
+
 
 st.header("First few rows of dataset")
 st.write(firstrows)
@@ -142,12 +135,30 @@ st.write(lastrows)
 st.header("summary of dataset")
 st.write(summary)
 
+st.markdown("""
+These resulting tables represent the quality of the data as well as the summary, 
+from it I can decern that the dataset is consistent in the data type and quality, 
+not having any random unreadable data, as well as having one value for every single row with none missing.
+""")
 st.header("Distribution of attributes")
 st.write(fig)
-
+st.markdown("""
+These graphs show the distribution of all data categories of which you can see have no features or trends that stand out, 
+though it can be seen that the data set has a high number of mediocre wine quality
+""")
 st.header("Correlation Matrix Heat Map")
 st.pyplot(fig3)
+st.markdown("""
+Looking at the correlation matrix it can be concluded that alcohol (0.48), 
+sulphates (0.25), and citric acid (0.23) in that order are the most favourable qualities in red wine and contribute most to its quality rating. 
+The opposite would be the Volatile acidity (-0.39), total sulphur dioxide (-0.19) and density (-0.17), in that order. It could be assumed that higher qualities of red wine is rated mostly based on the former three qualities. 
 
+The correlation matrix also shows the two attributes which are most correlated to each other, 
+which are the pH levels and fixed acidity which have an absolute value of 0.682978, or expectedly free sulphur dioxide and total sulphur dioxide, 
+though the only meaningful connection between the any variables that doesn’t include quality would be that the density of the red wine, which was effected greatly by the fixed acidity levels having a correlation of 0.67, 
+though other than those few high correlations there wasn’t any interesting trend or connection visible.
+
+""")
 st.header("Model Accuracy Results")
 
 #iterates through models list, name and model.
@@ -169,7 +180,12 @@ ax.set_title('Algorithm Accuracy Comparison')
 
 st.header("Model Accuracy Results Figure")
 st.pyplot(fig4)
+st.markdown("""
+This shows that the Random Tree Classifier Model is the most promising model for the red wine data set from those chosen, 
+though it also reveals that the Linear Discriminant Analysis has an outlier for a strange reason, this could be due to the way an LDA algorithm works functions.
 
+Next the Random Tree Classifier Model is run against the entire training dataset that was created.
+""")
 
 # Runs training data on RandomForestClassifier method
 model = RandomForestClassifier()
@@ -183,4 +199,22 @@ from sklearn.metrics import classification_report
 report = classification_report(Y_validation, predictions)
 st.header("Rtree classifier Results agiasnt whole dataset")
 st.text(report)
+st.markdown("""
+From this We can ascertain that the Random Tree Classifier model that we made was ~72% accurate at predicting the quality rating of red wine, depending on its makeup.
+""")
 
+st.header("Conclusion")
+st.markdown("""
+This Report demonstrates the Research and implementation done for the capstone project for ST1, 
+it demonstrates the EDA of the red wine dataset using a multitude of methods to answer the EDA questions, 
+it shows the PDA work done with the red wine dataset, allowing the user to predict the quality of red wine to an accuracy of 71%, 
+it demonstrates  that machine learning algorithms can be used to accurately predict ratings and events to a degree ,
+equal to human experts, with far less time and cost. 
+
+The report demonstrates that with greater dataset size, 
+better and more descriptive data, and better machine learning algorithms, 
+accuracy results can be greatly increased to near perfect prediction accuracy.
+""")
+
+link = '[GitHub Repository](https://github.com/Willson9000/Red_Wine_Dataset_Analysis)'
+st.markdown(link, unsafe_allow_html=True)
